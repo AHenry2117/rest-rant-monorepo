@@ -6,24 +6,7 @@ const jwt = require('json-web-token')
 const { user } = db;
 
 router.get('/profile', async (req, res) => {
-    try {
-        const[authenticationMethod, token] = req.headers.authorization.split('')
-
-        if(authenticationMethod === 'Bearer'){
-            const result = await jwt.decode(process.env.JWT_SECRET, token);
-
-            const { id } = result.value
-            let user = await user.findOne({
-                where: {
-                    userId: id
-                }
-            });
-        }    
-        res.json(user);
-
-    } catch (e) {
-        res.json(null)
-    }
+    res.json(req.currentUser)
 })
  
   
