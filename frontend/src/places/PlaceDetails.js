@@ -4,7 +4,6 @@ import { CurrentUser } from "../contexts/CurrentUser";
 import CommentCard from './CommentCard'
 import NewCommentForm from "./NewCommentForm";
 
-
 function PlaceDetails() {
 
 	const { placeId } = useParams()
@@ -55,7 +54,8 @@ function PlaceDetails() {
 		const response = await fetch(`http://localhost:5000/places/${place.placeId}/comments`, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${localStorage.getItem('token')}`
 			},
 			body: JSON.stringify(commentAttributes)
 		})
@@ -105,7 +105,6 @@ function PlaceDetails() {
 		})
 	}
 
-
 	let placeActions = null
 
 	if (currentUser?.role === 'admin') {
@@ -120,6 +119,7 @@ function PlaceDetails() {
 			</>
 		)
 	}
+
 
 	return (
 		<main>
